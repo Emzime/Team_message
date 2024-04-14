@@ -24,7 +24,6 @@ py main.py
 autorisations discord:
 - Voir les salons
 - Voir les anciens messages
-- Se connecter 
 
 il a besoin d'un :
 - jeton Github
