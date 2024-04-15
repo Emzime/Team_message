@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 from github import Github
-from config import DISCORD_TOKEN, DISCORD_CHANNEL, GITHUB_TOKEN, GITHUB_REPO, GITHUB_FILE
 
 # Initialise le client Discord avec les intentions
 intents = discord.Intents.default()
@@ -11,10 +10,12 @@ intents.members = False
 # Initialise le client Discord en utilisant les intentions
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-# Configuration du bot Discord et GitHub
-TOKEN = DISCORD_TOKEN
-GITHUB_TOKEN = GITHUB_TOKEN
-GITHUB_REPO = GITHUB_REPO
+# Essaie d'importer les tokens depuis config_dev.py sinon depuis config
+try:
+    from config_dev import DISCORD_TOKEN, DISCORD_CHANNEL, GITHUB_TOKEN, GITHUB_REPO, GITHUB_FILE
+# Si config_dev.py n'existe pas, importe les tokens depuis config.py
+except ImportError:
+    from config import DISCORD_TOKEN, DISCORD_CHANNEL, GITHUB_TOKEN, GITHUB_REPO, GITHUB_FILE
 
 
 async def update_markdown_file():
@@ -70,4 +71,4 @@ async def on_ready():
 
 
 # Démarrage du bot Discord
-bot.run(TOKEN)
+bot.run(DISCORD_TOKEN)
